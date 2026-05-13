@@ -1,6 +1,7 @@
 import { useParams, useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api/axios";
+
 import { useAuth } from "../store/authStore";
 
 import {
@@ -37,7 +38,7 @@ function ArticleByID() {
       setLoading(true);
 
       try {
-        const res = await axios.get(`http://localhost:4000/user-api/article/${id}`, { withCredentials: true });
+        const res = await API.get("/user-api/articles");
 
         setArticle(res.data.payload);
       } catch (err) {
@@ -61,7 +62,7 @@ function ArticleByID() {
   // delete article
   const deleteArticle = async () => {
     try {
-      await axios.delete(`http://localhost:4000/author-api/article/${id}`, { withCredentials: true });
+      await API.get("/user-api/articles");
 
       navigate("/author-profile");
     } catch (err) {

@@ -14,7 +14,7 @@ import {
 } from "../styles/common";
 import { NavLink } from "react-router";
 import { useState } from "react";
-import axios from "axios";
+import API from "../api/axios";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 
@@ -67,9 +67,9 @@ function Register() {
 
       if (role === "user") {
 
-        let resObj = await axios.post(
-          "http://localhost:4000/user-api/users",
-          formData,
+       let resObj = await API.post(
+       "/user-api/users",
+       formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -84,8 +84,8 @@ function Register() {
 
       if (role === "author") {
 
-        let resObj = await axios.post(
-          "http://localhost:4000/author-api/users",
+        let resObj = await API.post(
+         "/user-api/users",
           formData,
           {
             headers: {

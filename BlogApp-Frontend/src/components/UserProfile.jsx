@@ -1,7 +1,7 @@
 import { useAuth } from "../store/authStore";
 import { useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
-import axios from "axios";
+import API from "../api/axios";
 import { useEffect, useState } from "react";
 
 import {
@@ -37,10 +37,7 @@ function UserProfile() {
 
       try {
 
-        const res = await axios.get(
-          "http://localhost:4000/user-api/articles",
-          { withCredentials: true }
-        );
+        const res = await API.get("/user-api/articles");
 
         setArticles(res.data.payload);
 

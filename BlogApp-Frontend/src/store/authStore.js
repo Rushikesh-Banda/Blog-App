@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import axios from "axios";
+import API from "../api/axios";
 
 export const useAuth = create((set) => ({
   currentUser: null,
@@ -16,11 +16,7 @@ export const useAuth = create((set) => ({
       set({ loading: true, error: null });
 
       //make api call
-      let res = await axios.post(
-        "http://localhost:4000/common-api/login",
-        userCredObj,
-        { withCredentials: true }
-      );
+      const res = await API.post("/user-api/login", userCredObj);
 
       console.log("login response:", res.data); // added debug
 
@@ -49,10 +45,7 @@ export const useAuth = create((set) => ({
       set({ loading: true, error: null });
 
       //make logout api req
-      await axios.get(
-        "http://localhost:4000/common-api/logout",
-        { withCredentials: true }
-      );
+      await API.get("/user-api/articles");
 
       //update state
       set({
@@ -75,7 +68,7 @@ export const useAuth = create((set) => ({
    checkAuth: async () => {
     try {
       set({ loading: true });
-      const res = await axios.get("http://localhost:4000/common-api/check-auth", { withCredentials: true });
+      const res = await API.get("/user-api/articles");
 
       set({
         currentUser: res.data.payload,
